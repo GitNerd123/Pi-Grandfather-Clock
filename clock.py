@@ -114,7 +114,10 @@ try:
             break
         
         time.sleep(0.1)
+except KeyboardInterrupt:
+    # This catches the Ctrl+C so it doesn't show the Traceback
+    pass 
 finally:
     if OS_TYPE == "linux" and old_settings:
         termios.tcsetattr(sys.stdin, termios.TCSADRAIN, old_settings)
-    print("\nClock stopped.")
+    print("\n[✔] Clock safely powered down. See you next time!")
