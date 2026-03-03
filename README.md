@@ -1,41 +1,74 @@
 # 🕰️ Pi-Grandfather-Clock (PiGfC)
 
-### *The dream of a classic chime, powered by code.*
+> "I dreamed of owning a massive grandfather clock. Since I couldn't fit one in my room, I used AI to build this high-fidelity digital version for my Pi."
 
 ---
 
-## 📖 The Backstory
-I always had this dream of owning a real, massive grandfather clock—the kind that fills a room with that deep, steady tick and a resonant chime. Since I couldn't fit a 7-foot wooden clock in my setup yet, I teamed up with AI to build the next best thing: a high-fidelity digital version that runs 24/7 on my Pi. 
+## 🚀 Quick Setup
 
-**PiGfC** transforms any computer into a majestic timepiece with zero compromises on sound quality.
+### 1️⃣ Install Dependencies
+
+**Windows**
+```bash
+pip install pygame-ce
+```
+
+**DietPi / Linux**
+```bash
+sudo apt install python3-pygame alsa-utils -y
+```
 
 ---
 
-## 🚀 Features
-* **Universal Core:** Runs on **Windows** and **Linux (DietPi/Raspberry Pi)** automatically.
-* **Smooth Transitions:** Built-in **Fade-In** for melodies and **Fade-Out** for strikes.
-* **Anti-Spam Protection:** Internal locking ensures audio doesn't overlap or glitch if keys are pressed rapidly.
-* **Live Dashboard:** Real-time progress bar counting down to the next hour.
+### 2️⃣ Download & Cut Audio
 
----
-
-## 🛠️ Simple Setup
-
-### 1. Install Dependencies
-Ensure you have Python installed, then run the command for your system:
-
-* **Windows:** `pip install pygame-ce`
-* **DietPi/Linux:** `sudo apt install python3-pygame alsa-utils -y`
-
-### 2. Prepare the Audio
-We use `yt-dlp` and `ffmpeg` to get the perfect tones.
+Run these commands in order:
 
 ```bash
-# 1. Download the high-quality master file
-python -m yt_dlp -x --audio-format wav -o "master.wav" "[https://www.youtube.com/watch?v=nj3hJ1OrLTw](https://www.youtube.com/watch?v=nj3hJ1OrLTw)"
+# 1. Download source audio
+python -m yt_dlp -x --audio-format wav -o "master.wav" "https://www.youtube.com/watch?v=nj3hJ1OrLTw"
 
-# 2. Extract the Westminster Melody
+# 2. Cut Westminster melody
 ffmpeg -i master.wav -ss 00:00:00 -t 00:00:19 -c copy westminster.wav
 
-# 3. Extract the Single Strike Bong
+# 3. Cut strike sound
 ffmpeg -i master.wav -ss 00:00:20 -t 00:00:05 -c copy strike.wav
+```
+
+---
+
+### 3️⃣ Run It
+
+```bash
+python script.py
+```
+
+---
+
+## 🎮 Controls & Features
+
+- 🌙 **Night Mode**  
+  Silent from 11 PM to 7 AM  
+  (Edit `NIGHT_START` inside the script)
+
+- 🔕 **Anti-Spam Protection**  
+  Prevents overlapping sounds
+
+- ⌨️ **Keyboard Controls**
+  - `1` → Play Melody  
+  - `2` → Play Strike  
+  - `q` → Quit  
+
+---
+
+## 📂 Required Files (Same Folder)
+
+```
+script.py
+westminster.wav
+strike.wav
+```
+
+---
+
+Created with passion & Gemini.
